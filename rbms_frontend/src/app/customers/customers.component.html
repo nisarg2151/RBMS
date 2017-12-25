@@ -1,0 +1,136 @@
+<div class="main-content">
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header" data-background-color="red">
+                        <h4 class="title">Customer</h4>
+                        <!-- <p class="category">New customer on 15th September, 2016</p> -->
+                    </div>
+                    <div class="card-content table-responsive">
+                        <table class="table table-hover">
+                            <thead class="text-danger">
+                                <tr>
+                                    <th *ngFor="let head of customersHeader">
+                                        <b>{{head | uppercase}}</b>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let data of customers.allCustomers">
+                                    <td *ngFor="let head of customersHeader">
+                                        <span>{{data[head]}}</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header" data-background-color="red">
+                        <h4 class="title">Add Customer</h4>
+                    </div>
+                    <div class="card-content">
+                        <form (ngSubmit)="addCustomer()" #addCustomerForm="ngForm">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group form-black label-floating">
+                                        <label class="control-label">CID</label>
+                                        <input type="text" class="form-control" id="cid" required [(ngModel)]="customer.cid" name="cid" #cid="ngModel">
+                                        <div [hidden]="cid.valid || cid.pristine" class="alert alert-danger">
+                                            CID is required
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group form-black label-floating">
+                                        <label class="control-label">Name</label>
+                                        <input type="text" class="form-control" id="name" required [(ngModel)]="customer.name" name="name" #name="ngModel">
+                                        <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
+                                            Name is required
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group form-black label-floating">
+                                        <label class="control-label">Telephone</label>
+                                        <input type="phone" class="form-control" id="telephone" required [(ngModel)]="customer.telephone" name="telephone" #telephone="ngModel">
+                                        <div [hidden]="telephone.valid || telephone.pristine" class="alert alert-danger">
+                                            Telephone is required
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                            <button type="submit" class="btn btn-danger pull-left" [disabled]="!addCustomerForm.form.valid">Add Customer</button>
+                            <div class="clearfix"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- <div class="modal fade" id="messageModal" role="dialog">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h4 *ngIf=addedFlag style="align:center" class="modal-title"> <strong style="align:center">Customer added succesfully</strong></h4>
+                      <h4 *ngIf=!addedFlag style="align:center" class="modal-title"> <strong style="align:center">Error Occured while adding customer</strong></h4>
+                      <h4> <strong style="align:center">  </strong></h4>
+                      <h4> <strong style="align:center">  </strong></h4>                      
+                    </div>
+                    </div>
+                </div>
+        </div> -->
+
+        <div class="modal fade" id="messageModal" role="dialog">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <!-- <div class="modal-header">
+                      <h4 *ngIf=addedFlag class="modal-title"> <strong style="align:center">Purchase added succesfully</strong></h4>
+                      <h4 *ngIf=!addedFlag class="modal-title"> <strong style="align:center">Error Occured while adding purchase</strong></h4>
+                      <h4> <strong style="align:center">  </strong></h4>
+                      <h4> <strong style="align:center">  </strong></h4>
+                      
+                    </div> -->
+
+                    <div *ngIf=addedFlag class="modal-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="card">
+                                        <div class="card-header" data-background-color="green">
+                                            <h4 class="title"> Customer {{customer.cid }} added succesfully</h4>
+                                            
+                                        </div>
+    
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    <div *ngIf=!addedFlag class="modal-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="card">
+                                        <div class="card-header" data-background-color="red">
+                                            <h4 class="title">Error occured while adding Customer "{{customer.cid }}"  --> {{message}}</h4>
+                                        </div>
+    
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+
+    </div>
+</div>

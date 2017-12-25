@@ -1,0 +1,9 @@
+.control-label {
+     font-size: 13px !important;
+     text-align:center !important;
+     font-weight: bold !important;
+     
+}
+.card-content{
+    max-height:350px;
+}

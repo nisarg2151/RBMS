@@ -1,0 +1,292 @@
+
+
+
+<div class="main-content">
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header" data-background-color="red">
+                        <h4 class="title">Purchases</h4>
+                        <!-- <p class="category">New purchases on 15th September, 2016</p> -->
+                    </div>
+                    <div class="card-content table-responsive">
+                        <table class="table table-hover">
+                            <thead class="text-danger">
+                                <tr>
+                                    <th *ngFor="let head of purchasesHeader"><b>{{head | uppercase}}</b></th>
+                                  </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let data of purchases.allPurchases| searchpipe :search : purchasesHeader">
+                                    <td *ngFor="let head of purchasesHeader"><span>{{data[head]}}</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header" data-background-color="red">
+                            <h4 class="title">Add Purchase</h4>
+                        </div>
+                        <div class="card-content">
+                            <form (ngSubmit)="addPurchase()" #addPurchaseForm="ngForm">
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <div class="form-group form-black label-floating">
+                                            <label class="control-label">Customer ID</label>
+                                            <input type="text" class="form-control"  id="cid" required
+                                            [(ngModel)]="purchase.cid" name="cid"
+                                            #cid="ngModel">
+                                            <!-- <div [hidden]="cid.valid || cid.pristine"
+                                            class="alert alert-danger">
+                                              CID is required
+                                            </div> -->
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="form-group form-black label-floating">
+                                            <label class="control-label">Employee ID</label>
+                                            <input type="text" class="form-control"  id="eid" required
+                                            [(ngModel)]="purchase.eid" name="eid"
+                                            #eid="ngModel">
+                                            <!-- <div [hidden]="eid.valid || eid.pristine"
+                                            class="alert alert-danger">
+                                              EID is required
+                                            </div> -->
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                    <div class="row">
+                                    <div class="col-md-5">
+                                        <div class="form-group form-black label-floating">
+                                            <label class="control-label">Product ID</label>
+                                            <input type="phone" class="form-control" id="pid" required
+                                            [(ngModel)]="purchase.pid" name="pid"
+                                            #pid="ngModel">
+                                            <!-- <div [hidden]="pid.valid || pid.pristine"
+                                            class="alert alert-danger">
+                                            PID is required
+                                            </div> -->
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5">
+                                            <div class="form-group form-black label-floating ">
+                                                <label class="control-label">Purchase Quantity</label>
+                                                <input type="number" class="form-control" id="quantity" required
+                                                [(ngModel)]="purchase.quantity" name="quantity"
+                                                #quantity="ngModel">
+                                                <!-- <div [hidden]="quantity.valid || quantity.pristine"
+                                                class="alert alert-danger">
+                                                Quantity is required
+                                                </div> -->
+                                            </div>
+                                        </div>
+                                </div>        
+    
+                                <button type="submit" class="btn btn-danger pull-left" [disabled]="!addPurchaseForm.form.valid">Add Purchase</button>
+                                <div class="clearfix"></div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+
+            <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header" data-background-color="red">
+                            <h4 class="title">Delete Purchase</h4>
+                        </div>
+                        <div class="card-content">
+                            <form (ngSubmit)="deletePurchase()" #deletePurchaseForm="ngForm">
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <div class="form-group form-black label-floating">
+                                            <label class="control-label">Purchase ID</label>
+                                            <input type="text" class="form-control"  id="puid" required
+                                            [(ngModel)]="purchase.pur" name="puid"
+                                            #puid="ngModel">
+                                            <div [hidden]="puid.valid || puid.pristine"
+                                            class="alert alert-danger">
+                                              Purchase ID is required
+                                            </div>
+                                        </div>
+                                    </div>
+                             
+                                </div>
+                                
+    
+                                <button type="submit" class="btn btn-danger pull-left" [disabled]="!deletePurchaseForm.form.valid">Delete Purchase</button>
+                                <div class="clearfix"></div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal fade" id="messageModal" role="dialog">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <!-- <div class="modal-header">
+                              <h4 *ngIf=addedFlag class="modal-title"> <strong style="align:center">Purchase added succesfully</strong></h4>
+                              <h4 *ngIf=!addedFlag class="modal-title"> <strong style="align:center">Error Occured while adding purchase</strong></h4>
+                              <h4> <strong style="align:center">  </strong></h4>
+                              <h4> <strong style="align:center">  </strong></h4>
+                              
+                            </div> -->
+
+                            <div *ngIf=!errorFlag class="modal-body">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="card">
+                                                <div class="card-header" data-background-color="green">
+                                                    <h4  *ngIf=addedFlag class="title">{{modalMessage}} </h4>
+                                                    <h4 *ngIf=!addedFlag class="title">{{modalMessage}} </h4>
+                                                    
+                                                </div>
+            
+                                            </div>
+                                        </div>
+                                    </div>
+                            </div>
+
+                            <div *ngIf=errorFlag class="modal-body">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="card">
+                                                <div class="card-header" data-background-color="red">
+                                                    <h4 class="title">{{modalMessage}} </h4>
+                                                </div>            
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+
+
+        </div>
+    </div>
+</div>
+
+<!-- <div class="main-content">
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header" data-background-color="red">
+                    <h4 class="title">Edit Profile</h4>
+                    <p class="category">Complete your profile</p>
+                </div>
+                <div class="card-content">
+                    <form>
+                        <div class="row">
+                            <div class="col-md-5">
+                                <div class="form-group form-black label-floating is-empty">
+                                    <label class="control-label">Company (disabled)</label>
+                                    <input type="text" class="form-control" disabled>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group form-black label-floating is-empty">
+                                    <label class="control-label">Username</label>
+                                    <input type="text" class="form-control" >
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group form-black label-floating is-empty">
+                                    <label class="control-label">Email address</label>
+                                    <input type="email" class="form-control" >
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group form-black label-floating is-empty">
+                                    <label class="control-label">Fist Name</label>
+                                    <input type="text" class="form-control" >
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group form-black label-floating is-empty">
+                                    <label class="control-label">Last Name</label>
+                                    <input type="text" class="form-control" >
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group form-black label-floating is-empty">
+                                    <label class="control-label">Adress</label>
+                                    <input type="text" class="form-control" >
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group form-black label-floating is-empty">
+                                    <label class="control-label">City</label>
+                                    <input type="text" class="form-control" >
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group form-black label-floating is-empty">
+                                    <label class="control-label">Country</label>
+                                    <input type="text" class="form-control" >
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group form-black label-floating is-empty">
+                                    <label class="control-label">Postal Code</label>
+                                    <input type="text" class="form-control" >
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>About Me</label>
+                                    <div class="form-group form-black label-floating is-empty">
+                                        <label class="control-label"> Lamborghini Mercy, Your chick she so thirsty, I'm in that two seat Lambo.</label>
+                                        <textarea class="form-control" rows="5"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-danger pull-right">Update Profile</button>
+                        <div class="clearfix"></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card card-profile">
+                <div class="card-avatar">
+                    <a href="#pablo">
+                        <img class="img" src="../assets/img/faces/marc.jpg" />
+                    </a>
+                </div>
+
+                <div class="content">
+                    <h6 class="category text-gray">CEO / Co-Founder</h6>
+                    <h4 class="card-title">Alec Thompson</h4>
+                    <p class="card-content">
+                        Don't be scared of the truth because we need to restart the human foundation in truth And I love you like Kanye loves Kanye I love Rick Owens’ bed design but the back is...
+                    </p>
+                    <a href="#pablo" class="btn btn-danger btn-round">Follow</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div> -->

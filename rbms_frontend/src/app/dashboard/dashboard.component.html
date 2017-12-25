@@ -1,0 +1,236 @@
+<div class="main-content">
+    <div class="container-fluid">
+
+
+        <div *ngIf="showWidgets" class="row">
+
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="card card-stats">
+                    <div class="card-header" data-background-color="orange">
+                        <i class="material-icons">shopping_cart</i>
+                    </div>
+                    <div class="card-content">
+                        <p class="category">#Purchases</p>
+                        <h3 class="title">{{count.purchase}}</h3>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="card card-stats">
+                    <div class="card-header" data-background-color="green">
+                        <i class="material-icons">people</i>
+                    </div>
+                    <div class="card-content">
+                        <p class="category">#Customers</p>
+                        <h3 class="title">{{count.customer}}</h3>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="card card-stats">
+                    <div class="card-header" data-background-color="red">
+                        <i class="material-icons">local_shipping</i>
+                    </div>
+                    <div class="card-content">
+                        <p class="category">#Suppliers</p>
+                        <h3 class="title">{{count.supplier}}</h3>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="card card-stats">
+                    <div class="card-header" data-background-color="blue">
+                        <i class="material-icons">contacts</i>
+                    </div>
+                    <div class="card-content">
+                        <p class="category">#Employees</p>
+                        <h3 class="title">{{count.employee}}</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header" data-background-color="red">
+                        <h4 class="title">Retrieve Saving</h4>
+                    </div>
+                    <div class="card-content">
+                        <form (ngSubmit)="getSaving()" #getSavingForm="ngForm">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group form-black label-floating">
+                                        <label class="control-label">Purchase ID</label>
+                                        <input type="text" class="form-control" id="puid" required [(ngModel)]="getSavingPUR.pur" name="puid" #puid="ngModel">
+                                        <!-- <div [hidden]="puid.valid || puid.pristine" class="alert alert-dangesaving.puidr">
+                                            Purchase ID is required
+                                        </div> -->
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+                            <button type="submit" class="btn btn-danger pull-left" [disabled]="!getSavingForm.form.valid">Calculate Savings</button>
+                            <div class="clearfix"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header" data-background-color="red">
+                        <h4 class="title">Retrieve Monthly Sales</h4>
+                    </div>
+                    <div class="card-content">
+                        <form (ngSubmit)="getMonthlySales()" #getMonthlySalesForm="ngForm">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group form-black label-floating">
+                                        <label class="control-label">Employee ID</label>
+                                        <input type="text" class="form-control" id="eid" required [(ngModel)]="monthlySales.eid" name="eid" #eid="ngModel">
+                                        <!-- <div [hidden]="eid.valid || eid.pristine" class="alert alert-danger monthlySales.eid">
+                                            Employee ID is required
+                                        </div> -->
+                                    </div>
+                                </div>
+
+                            </div>
+                            <button type="submit" class="btn btn-danger pull-left" [disabled]="!getMonthlySalesForm.form.valid">Get Sales</button>
+                            <div class="clearfix"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+
+            <div *ngIf="!graphShow" class="col-md-6">
+                <div class="card">
+                    <div class="card-header" data-background-color="red">
+                        <h4 class="title">Graph Reports</h4>
+                    </div>
+                    <div class="card-content">
+                        <button type="submit" class="btn btn-danger pull-left" (click) = "showGraphs()">Show</button>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="graphShow" class="col-md-6">
+                    <div class="card">
+                        <div class="card-header" data-background-color="red">
+                            <h4 class="title">Graph Reports</h4>
+                        </div>
+                        <div class="card-content">
+                            <button type="submit" class="btn btn-danger pull-left" (click) = "graphShow = !graphShow">Hide</button>
+                        </div>
+                    </div>
+            </div>
+
+
+
+        </div>
+
+
+
+        <div *ngIf="graphShow" class="row">
+
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header1 card-chart" data-background-color="orange">
+                        <div class="ct-chart" id="barChart"></div>
+                    </div>
+                    <div class="card-content">
+                        <h4 class="title">Total_Price for each Purchase</h4>
+                        <p class="category">Bar Chart</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header1 card-chart" data-background-color="red">
+                        <div class="ct-chart" id="lineChart"></div>
+                    </div>
+                    <div class="card-content">
+                        <h4 class="title">Total_Price for each Purchase</h4>
+                        <p class="category">Line Chart</p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="modal fade" id="savingsModal" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div *ngIf=showSavings class="modal-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-header" data-background-color="red">
+                                        <h4 class="title">Savings for Purchase#{{ getSavingPUR.pur }} is {{ savingForPUR.saving }} </h4>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="salesModal" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <!-- <div class="modal-header">
+                        <h4 class="modal-title">
+                            <strong style="align:center">Sales for {{ monthlySales.eid }}</strong>
+                        </h4>
+                        <h4>
+                            <strong style="align:center"> </strong>
+                        </h4>
+                    </div> -->
+                    <div *ngIf=showSales class="modal-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-header" data-background-color="red">
+                                        <h4 class="title">Sales Record For {{ monthlySales.eid }}</h4>
+                                    </div>
+                                    <div class="card-content table-responsive">
+                                        <table class="table table-hover">
+                                            <thead class="text-danger">
+                                                <tr>
+                                                    <th *ngFor="let head of salesDataHeader">
+                                                        <b>{{head | uppercase}}</b>
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let data of salesData.salesPerEmployee">
+                                                    <td *ngFor="let head of salesDataHeader">
+                                                        <span>{{data[head]}}</span>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>

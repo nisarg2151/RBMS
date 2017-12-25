@@ -1,0 +1,29 @@
+<div class="main-content">
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header" data-background-color="red">
+                        <h4 class="title">Employees</h4>
+                        <!-- <p class="category">New employees on 15th September, 2016</p> -->
+                    </div>
+                    <div class="card-content table-responsive">
+                        <table class="table table-hover">
+                            <thead class="text-danger">
+                                <tr>
+                                    <th *ngFor="let head of employeesHeader"><b>{{head | uppercase}}</b></th>
+                                  </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let data of employees.allEmployees">
+                                    <td *ngFor="let head of employeesHeader"><span>{{data[head]}}</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

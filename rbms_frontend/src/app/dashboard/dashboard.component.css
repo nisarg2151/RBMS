@@ -1,0 +1,31 @@
+/* .card-content{
+    min-height: 350px;
+    max-height:350px;
+} */
+
+.control-label {
+  font-size: 13px !important;
+  text-align:center !important;
+  font-weight: bold !important;
+  
+}
+.card-content{
+  max-height:300px;
+} 
+.card-header1{
+  max-height:300px;
+} 
+/* .container {
+    width: 400px;
+    height: 300px;
+    margin: 50px auto 0 auto;
+    position: relative;
+    
+  }
+  
+  .content {
+    background: url('https://noraesae.github.io/perfect-scrollbar/azusa.jpg') top left no-repeat;
+    width: 400px;
+    height: 400px;
+  }
+   */

@@ -1,0 +1,8 @@
+.control-label{
+    font-size: 15px !important;
+    font-style: color black;
+}
+
+.card-content{
+    max-height:300px;
+} 
